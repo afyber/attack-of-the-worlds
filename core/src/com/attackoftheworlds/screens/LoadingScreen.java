@@ -2,34 +2,38 @@ package com.attackoftheworlds.screens;
 
 import com.attackoftheworlds.AttackOfTheWorlds;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 
-/** screen for selecting play, or options
- *  @author afyber */
-public class MainMenuScreen implements Screen {
+/** shows while the game loads all the sprites
+ * @author afyber */
+public class LoadingScreen implements Screen {
 
     private AttackOfTheWorlds game;
-    private boolean hasFocus = true;
-    private boolean paused = false;
 
     private OrthographicCamera camera;
 
     /** initializes the game end screen
-    * @param game the instance of {@link AttackOfTheWorlds} to use */
-    public MainMenuScreen(AttackOfTheWorlds game) {
+     * @param game the instance of {@link AttackOfTheWorlds} to use */
+    public LoadingScreen(AttackOfTheWorlds game) {
         this.game = game;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, AttackOfTheWorlds.WIDTH, AttackOfTheWorlds.HEIGHT);
+
+        this.game.assets.load("sprites/earth.png", Texture.class);
+        this.game.assets.load("sprites/mars.png", Texture.class);
+        this.game.assets.load("sprites/poisonbis.png", Texture.class);
+        this.game.assets.load("sprites/ship_frame1.png", Texture.class);
+        this.game.assets.load("sprites/ship_frame2.png", Texture.class);
     }
 
     @Override
     public void render(float delta) {
         // clear the screen
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // stuff for the camera
@@ -37,39 +41,36 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         // check for if we want a new game, to continue, or to quit
-        if (hasFocus && !paused) {
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-                game.setScreen(new GameScreen(game));
-            }
+        if (this.game.assets.update()) {
+            this.game.setScreen(new MainMenuScreen(this.game));
         }
 
         // rendering
         game.batch.begin();
         // all calls to render() go here
-        game.font.draw(game.batch, "Attack of the", 400, 400);
-        game.font.draw(game.batch, "Worlds", 420, 380);
+        game.font.draw(game.batch, "LOADING...", 400, 300);
 
         game.batch.end();
     }
 
     @Override
     public void show() {
-        hasFocus = true;
+        // doesn't need to do anything
     }
 
     @Override
     public void hide() {
-        hasFocus = false;
+        // doesn't need to do anything
     }
 
     @Override
     public void resume() {
-        paused = false;
+        // doesn't need to do anything
     }
 
     @Override
     public void pause() {
-        paused = true;
+        // doesn't need to do anything
     }
 
     @Override
