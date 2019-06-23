@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class GameScreen implements Screen {
 
     private AttackOfTheWorlds game;
+    private boolean hasFocus;
+    private boolean paused = false;
 
     private OrthographicCamera camera;
 
@@ -21,6 +23,7 @@ public class GameScreen implements Screen {
     * @param game the instance of {@link AttackOfTheWorlds} to use */
     public GameScreen(AttackOfTheWorlds game) {
         this.game = game;
+        hasFocus = true;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, AttackOfTheWorlds.WIDTH, AttackOfTheWorlds.HEIGHT);
@@ -37,10 +40,11 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         // game logic
-
-        // you lost
-        if (peopleLeft <= 0)
-            this.game.setScreen(new EndGameScreen(this.game, peopleLeft));
+        if (hasFocus && !paused) {
+            // you lost
+            if (peopleLeft <= 0)
+                this.game.setScreen(new EndGameScreen(this.game, peopleLeft));
+        }
 
         // rendering
         game.batch.begin();
@@ -50,22 +54,22 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-
+        hasFocus = true;
     }
 
     @Override
     public void hide() {
-
+        hasFocus = false;
     }
 
     @Override
     public void resume() {
-
+        paused = false;
     }
 
     @Override
     public void pause() {
-
+        paused = true;
     }
 
     @Override

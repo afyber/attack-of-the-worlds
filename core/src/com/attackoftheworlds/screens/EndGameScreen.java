@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class EndGameScreen implements Screen {
 
     private AttackOfTheWorlds game;
+    private boolean hasFocus = true;
+    private boolean paused = false;
 
     private OrthographicCamera camera;
 
@@ -47,7 +49,9 @@ public class EndGameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         // just play the animation that goes with this ending
-
+        if (hasFocus && !paused) {
+            // only play the animation if the window has focus (if another window isn't selected)
+        }
 
         // rendering
         game.batch.begin();
@@ -57,22 +61,22 @@ public class EndGameScreen implements Screen {
 
     @Override
     public void show() {
-
+        hasFocus = true;
     }
 
     @Override
     public void hide() {
-
+        hasFocus = false;
     }
 
     @Override
     public void resume() {
-
+        paused = false;
     }
 
     @Override
     public void pause() {
-
+        paused = true;
     }
 
     @Override

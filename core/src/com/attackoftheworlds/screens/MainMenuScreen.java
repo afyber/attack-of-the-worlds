@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class MainMenuScreen implements Screen {
 
     private AttackOfTheWorlds game;
+    private boolean hasFocus = true;
+    private boolean paused = false;
 
     private OrthographicCamera camera;
 
@@ -34,7 +36,9 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         // check for if we want a new game, to continue, or to quit
+        if (hasFocus && !paused) {
 
+        }
 
         // rendering
         game.batch.begin();
@@ -44,22 +48,22 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-
+        hasFocus = true;
     }
 
     @Override
     public void hide() {
-
+        hasFocus = false;
     }
 
     @Override
     public void resume() {
-
+        paused = false;
     }
 
     @Override
     public void pause() {
-
+        paused = true;
     }
 
     @Override
