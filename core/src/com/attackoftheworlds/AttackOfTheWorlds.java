@@ -2,13 +2,9 @@ package com.attackoftheworlds;
 
 import com.attackoftheworlds.screens.LoadingScreen;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import sun.font.TrueTypeGlyphMapper;
 
 /** The game class, mostly used for drawing with the SpriteBatch */
 public class AttackOfTheWorlds extends Game {

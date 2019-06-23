@@ -20,7 +20,7 @@ public class Sprite {
         this(texture, 0, 0);
     }
     public Sprite(Texture texture, float x, float y) {
-        this(texture, x, y, 0, 0);
+        this(texture, x, y, 1);
     }
     public Sprite(Texture texture, float x, float y, float scale) {
         this(texture, x, y, 0, 0, scale);
@@ -54,5 +54,13 @@ public class Sprite {
         double radians = Math.toRadians(this.angle);
         this.loc.x += this.speed * Math.cos(radians) * delta;
         this.loc.y += this.speed * Math.sin(radians) * delta;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public float getAngle() {
+        return angle;
     }
 }
