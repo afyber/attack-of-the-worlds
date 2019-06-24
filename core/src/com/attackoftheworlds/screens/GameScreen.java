@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 /** keeps track of all the things in the main game
  * @author afyber*/
 public class GameScreen implements Screen {
+    private static final int NUM_STARS = 20;
 
     private AttackOfTheWorlds game;
     private boolean hasFocus;
@@ -25,6 +26,8 @@ public class GameScreen implements Screen {
 
     private AnimatedSprite ship;
     private Sprite cannon;
+
+    private Sprite[] stars;
 
     /** initializes the game end screen
     * @param game the instance of {@link AttackOfTheWorlds} to use */
@@ -41,6 +44,8 @@ public class GameScreen implements Screen {
 
         cannon = new Sprite(game.assets.get("sprites/cannon.png", Texture.class), AttackOfTheWorlds.WIDTH / 2f - 34, AttackOfTheWorlds.HEIGHT / 2f - 34,
                 26, 26, 1.5f);
+
+        stars = getRandomStars();
     }
 
     @Override
@@ -71,10 +76,25 @@ public class GameScreen implements Screen {
         // rendering
         game.batch.begin();
         // all calls to render() go here
+        for (Sprite star : stars) {
+            star.render(game.batch);
+        }
+
         ship.render(game.batch);
         cannon.render(game.batch);
 
         game.batch.end();
+    }
+
+    private Sprite[] getRandomStars() {
+        Sprite[] stars = new Sprite[NUM_STARS];
+
+        for (int i = 0; i < NUM_STARS; i++) {
+            stars[i] = new Sprite(game.assets.get("sprites/star.png", Texture.class), game.random.nextInt(AttackOfTheWorlds.WIDTH),
+                    game.random.nextInt(AttackOfTheWorlds.HEIGHT), game.random.nextFloat() + 0.5f);
+        }
+
+        return stars;
     }
 
     @Override
