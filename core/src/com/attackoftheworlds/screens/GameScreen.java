@@ -1,10 +1,14 @@
 package com.attackoftheworlds.screens;
 
 import com.attackoftheworlds.AttackOfTheWorlds;
+import com.attackoftheworlds.gfx.AnimatedSprite;
+import com.attackoftheworlds.gfx.Sprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 /** keeps track of all the things in the main game
  * @author afyber*/
@@ -17,7 +21,10 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
 
     // start at 20 health
-    private int peopleLeft = 20;
+    private int peopleLeft;
+
+    private AnimatedSprite ship;
+    private Sprite cannon;
 
     /** initializes the game end screen
     * @param game the instance of {@link AttackOfTheWorlds} to use */
@@ -27,6 +34,13 @@ public class GameScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, AttackOfTheWorlds.WIDTH, AttackOfTheWorlds.HEIGHT);
+
+        peopleLeft = 20;
+        Texture[] frames = new Texture[]{game.assets.get("sprites/ship_frame1.png"), game.assets.get("sprites/ship_frame2.png")};
+        ship = new AnimatedSprite(frames, 60, AttackOfTheWorlds.WIDTH / 2f - 40, AttackOfTheWorlds.HEIGHT / 2f - 40, 2);
+
+        cannon = new Sprite(game.assets.get("sprites/cannon.png", Texture.class), AttackOfTheWorlds.WIDTH / 2f - 34, AttackOfTheWorlds.HEIGHT / 2f - 34,
+                26, 26, 1.5f);
     }
 
     @Override
@@ -44,11 +58,22 @@ public class GameScreen implements Screen {
             // you lost
             if (peopleLeft <= 0)
                 this.game.setScreen(new EndGameScreen(this.game, peopleLeft));
+
+            ship.update(delta);
+
+            Vector2 mouseLoc = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+            double cannonAngle = Math.atan2(mouseLoc.x - AttackOfTheWorlds.WIDTH / 2f,
+                    mouseLoc.y - AttackOfTheWorlds.HEIGHT / 2f);
+
+            cannon.setAngle((float)Math.toDegrees(cannonAngle) - 90);
         }
 
         // rendering
         game.batch.begin();
         // all calls to render() go here
+        ship.render(game.batch);
+        cannon.render(game.batch);
+
         game.batch.end();
     }
 
