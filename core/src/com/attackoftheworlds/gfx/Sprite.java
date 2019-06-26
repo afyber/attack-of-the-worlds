@@ -11,7 +11,7 @@ public class Sprite {
     protected float angle;
     protected float scale;
 
-    private float speed;
+    protected float speed;
 
     // used for rotating
     protected Vector2 origin;
@@ -37,7 +37,7 @@ public class Sprite {
         this.origin = new Vector2(originX, originY);
         this.scale = scale;
         this.angle = angle;
-        speed = 1;
+        speed = 10;
     }
 
     public void render(SpriteBatch batch) {

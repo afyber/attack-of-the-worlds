@@ -1,6 +1,8 @@
 package com.attackoftheworlds.screens;
 
 import com.attackoftheworlds.AttackOfTheWorlds;
+import com.attackoftheworlds.enemies.EarthPlanet;
+import com.attackoftheworlds.enemies.Planet;
 import com.attackoftheworlds.gfx.AnimatedSprite;
 import com.attackoftheworlds.gfx.Sprite;
 import com.badlogic.gdx.Gdx;
@@ -9,6 +11,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.ArrayList;
 
 /** keeps track of all the things in the main game
  * @author afyber*/
@@ -29,6 +33,8 @@ public class GameScreen implements Screen {
 
     private Sprite[] stars;
 
+    private ArrayList<Planet> planets;
+
     /** initializes the game end screen
     * @param game the instance of {@link AttackOfTheWorlds} to use */
     public GameScreen(AttackOfTheWorlds game) {
@@ -46,6 +52,9 @@ public class GameScreen implements Screen {
                 26, 26, 1.5f);
 
         stars = getRandomStars();
+
+        planets = new ArrayList<Planet>();
+        planets.add(new EarthPlanet(game.assets.get("sprites/earth.png", Texture.class), 100, 100, game.random));
     }
 
     @Override
@@ -71,6 +80,10 @@ public class GameScreen implements Screen {
                     mouseLoc.y - AttackOfTheWorlds.HEIGHT / 2f);
 
             cannon.setAngle((float)Math.toDegrees(cannonAngle) - 90);
+
+            for (Planet planet : planets) {
+                planet.move(delta);
+            }
         }
 
         // rendering
@@ -83,6 +96,10 @@ public class GameScreen implements Screen {
         ship.render(game.batch);
         cannon.render(game.batch);
 
+        for (Planet planet : planets) {
+            planet.render(game.batch);
+        }
+
         game.batch.end();
     }
 
@@ -90,7 +107,7 @@ public class GameScreen implements Screen {
         Sprite[] stars = new Sprite[NUM_STARS];
 
         for (int i = 0; i < NUM_STARS; i++) {
-            stars[i] = new Sprite(game.assets.get("sprites/star.png", Texture.class), game.random.nextInt(AttackOfTheWorlds.WIDTH),
+            stars[i] = new Sprite(game.assets.get("sprites/small_star.png", Texture.class), game.random.nextInt(AttackOfTheWorlds.WIDTH),
                     game.random.nextInt(AttackOfTheWorlds.HEIGHT), game.random.nextFloat() + 0.5f);
         }
 
