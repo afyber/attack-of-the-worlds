@@ -23,7 +23,7 @@ public class Sprite {
         this(texture, x, y, 1);
     }
     public Sprite(Texture texture, float x, float y, float scale) {
-        this(texture, x, y, 0, 0, scale);
+        this(texture, x, y, texture.getWidth() / 2f, texture.getHeight() / 2f, scale);
     }
     public Sprite(Texture texture, float x, float y, float originX, float originY) {
         this(texture, x, y, originX, originY, 1);

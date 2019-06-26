@@ -48,8 +48,7 @@ public class GameScreen implements Screen {
         Texture[] frames = new Texture[]{game.assets.get("sprites/ship_frame1.png"), game.assets.get("sprites/ship_frame2.png")};
         ship = new AnimatedSprite(frames, 60, AttackOfTheWorlds.WIDTH / 2f - 40, AttackOfTheWorlds.HEIGHT / 2f - 40, 2);
 
-        cannon = new Sprite(game.assets.get("sprites/cannon.png", Texture.class), AttackOfTheWorlds.WIDTH / 2f - 34, AttackOfTheWorlds.HEIGHT / 2f - 34,
-                26, 26, 1.5f);
+        cannon = new Sprite(game.assets.get("sprites/cannon.png", Texture.class), AttackOfTheWorlds.WIDTH / 2f - 34, AttackOfTheWorlds.HEIGHT / 2f - 34, 1.5f);
 
         stars = getRandomStars();
 
