@@ -11,7 +11,7 @@ public class Sprite {
     protected float angle;
     protected float scale;
 
-    private float speed;
+    protected float speed;
 
     // used for rotating
     protected Vector2 origin;
@@ -23,7 +23,7 @@ public class Sprite {
         this(texture, x, y, 1);
     }
     public Sprite(Texture texture, float x, float y, float scale) {
-        this(texture, x, y, 0, 0, scale);
+        this(texture, x, y, texture.getWidth() / 2f, texture.getHeight() / 2f, scale);
     }
     public Sprite(Texture texture, float x, float y, float originX, float originY) {
         this(texture, x, y, originX, originY, 1);
@@ -37,7 +37,7 @@ public class Sprite {
         this.origin = new Vector2(originX, originY);
         this.scale = scale;
         this.angle = angle;
-        speed = 1;
+        speed = 10;
     }
 
     public void render(SpriteBatch batch) {
