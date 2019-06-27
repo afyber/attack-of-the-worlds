@@ -5,22 +5,22 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Random;
 
-public class EarthPlanet extends Planet {
+public class PoisonPlanet extends Planet {
 
-    public EarthPlanet(Texture texture, int x, int y, Random random) {
+    public PoisonPlanet(Texture texture, int x, int y, Random random) {
         super(texture, x, y);
         setupAngle(random);
-        this.scale = 2;
+        this.scale = 1.5f;
     }
 
     @Override
     public int shipDamage() {
-        return 2;
+        return 1;
     }
 
     @Override
     public String specialModifier() {
-        return null;
+        return "poison";
     }
 
     @Override

@@ -2,7 +2,9 @@ package com.attackoftheworlds.screens;
 
 import com.attackoftheworlds.AttackOfTheWorlds;
 import com.attackoftheworlds.enemies.EarthPlanet;
+import com.attackoftheworlds.enemies.MarsPlanet;
 import com.attackoftheworlds.enemies.Planet;
+import com.attackoftheworlds.enemies.PoisonPlanet;
 import com.attackoftheworlds.gfx.AnimatedSprite;
 import com.attackoftheworlds.gfx.Sprite;
 import com.badlogic.gdx.Gdx;
@@ -54,6 +56,8 @@ public class GameScreen implements Screen {
 
         planets = new ArrayList<Planet>();
         planets.add(new EarthPlanet(game.assets.get("sprites/earth.png", Texture.class), 100, 100, game.random));
+        planets.add(new MarsPlanet(game.assets.get("sprites/mars.png", Texture.class), 400, 400, game.random));
+        planets.add(new PoisonPlanet(game.assets.get("sprites/poison.png", Texture.class), 700, 200, game.random));
     }
 
     @Override
@@ -75,8 +79,8 @@ public class GameScreen implements Screen {
             ship.update(delta);
 
             Vector2 mouseLoc = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-            double cannonAngle = Math.atan2(mouseLoc.x - AttackOfTheWorlds.WIDTH / 2f,
-                    mouseLoc.y - AttackOfTheWorlds.HEIGHT / 2f);
+            // not the way you're supposed to do it, it should be y then x, but this prevents weird stuff
+            double cannonAngle = Math.atan2(AttackOfTheWorlds.WIDTH / 2f - mouseLoc.x, AttackOfTheWorlds.HEIGHT / 2f - mouseLoc.y);
 
             cannon.setAngle((float)Math.toDegrees(cannonAngle) - 90);
 
